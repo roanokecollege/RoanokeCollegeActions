@@ -8,7 +8,9 @@ async function pull(path) {
   try {
       const { stdout, stderr } = await exec(`git_pull.sh ${path}`);
       console.log('stdout:', stdout);
-      console.log('stderr:', stderr);
+      if (stderr != '') {
+        console.error('stderr:', stderr);
+      }
   }catch (err) {
      console.error(err);
   };
