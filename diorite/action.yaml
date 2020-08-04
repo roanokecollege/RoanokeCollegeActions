@@ -1,0 +1,10 @@
+name: 'Pull (On Diorite)'
+description: 'Pulls the specified path on diorite'
+inputs:
+  directory:  # id of input
+    description: 'Which directory to execute the pull action'
+    required: true
+    default: '/var/www/html/'
+runs:
+  using: 'node12'
+  main: 'pull.js'
