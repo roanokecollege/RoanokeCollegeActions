@@ -1,19 +1,21 @@
 const core     = require('@actions/core');
 const github   = require('@actions/github');
-const exec     = require('child_process');
+const util     = require('util');
+const exec     = util.promisify(require('child_process').exec);
+
+
+async function pull(path) {
+  try {
+      const { stdout, stderr } = await exec(`git_pull.sh ${path}`);
+      console.log('stdout:', stdout);
+      console.log('stderr:', stderr);
+  }catch (err) => {
+     console.error(err);
+  };
+};
 
 try {
-  const path = core.getInput('directory');
-  exec ('git_pull.sh ' + path,
-        (err, stdout, stderr) => {
-          if (err) {
-            console.error (err);
-          } else {
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
-          }
-        }
-  );
+  pull (core.getInput("directory"));
 } catch (error) {
   core.setFailed(error.message);
 }
