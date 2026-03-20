@@ -6,5 +6,5 @@ inputs:
     required: true
     default: '/var/www/html/'
 runs:
-  using: 'node12'
+  using: 'node24'
   main: 'pull.js'
